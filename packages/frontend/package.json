@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@sf-girls-calculator/calculator": "^0.0.1",
-    "@vercel/analytics": "^1.4.1",
+    "@vercel/analytics": "^2.0.1",
     "comlink": "^4.4.1",
     "idb": "^8.0.4",
     "jotai": "^2.0.4",
