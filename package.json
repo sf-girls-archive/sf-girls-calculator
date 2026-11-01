@@ -4,8 +4,6 @@
   "license": "MIT",
   "private": true,
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "build": "npm run build:calculator && npm run build:frontend",
     "build:calculator": "npm run build --workspace=@sf-girls-calculator/calculator",
@@ -31,6 +29,5 @@
   },
   "overrides": {
     "minimatch": "11.0.3"
-  },
-  "keywords": []
+  }
 }

@@ -5,7 +5,7 @@
     "outDir": "dist",
     "module": "esnext",
     "target": "es2017",
-    "lib": ["es6", "dom", "es2017"],
+    "lib": ["es2019", "dom"],
     "sourceMap": true,
     "allowJs": true,
     "jsx": "preserve",

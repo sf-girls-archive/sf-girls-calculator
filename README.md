@@ -30,12 +30,12 @@ The **SF-Girls Calculator** is a web-based tool designed to help players experim
    ```bash
    npm start
    ```
-5. Open your browser and go to `http://localhost:3000` to access the calculator.
+5. Open the URL printed by Vite (by default, `http://localhost:5173`) to access the calculator.
 
 ## Requirements
 
 - **Node.js** (Latest LTS version recommended)
-- **NPM or Yarn** for package management
+- **npm** for package management
 - **Modern Web Browser** (Chrome, Firefox, Edge, etc.)
 
 ## Usage
@@ -49,7 +49,7 @@ The **SF-Girls Calculator** is a web-based tool designed to help players experim
 - **React** – Frontend framework for UI development
 - **TypeScript** – Ensures type safety and better maintainability
 - **Vite** – Fast build tool for frontend development
-- **CSS Modules** – Styles for a modular design
+- **SCSS** – Styles for the application
 
 ## Disclaimer
 
@@ -57,7 +57,7 @@ This calculator is a **fan-made** tool and is **not affiliated** with or endorse
 
 ## License
 
-This project is for **personal and educational use only**. Redistribution or commercial use is not permitted.
+This project is licensed under the MIT License. See [LICENSE.md](./LICENSE.md) for details.
 
 ## Contact
 
