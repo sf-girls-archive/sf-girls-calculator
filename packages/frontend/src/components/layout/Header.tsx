@@ -32,7 +32,7 @@ export const Header: FC = () => {
     window.localStorage.setItem(themeStorageKey, theme);
     document
       .querySelector<HTMLMetaElement>('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'light' ? '#f2f6fc' : '#09111d');
+      ?.setAttribute('content', theme === 'light' ? '#f7f1f8' : '#0c0815');
   }, [theme]);
 
   return (
