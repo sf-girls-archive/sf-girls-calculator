@@ -44,12 +44,14 @@ export const Graph: FC<{ result: ResultType }> = ({ result }) => {
   const data = prepareGraphData(result);
 
   const handleMouseClick: LegendProps['onClick'] = (data) => {
+    const clickedValue = data.value?.toString() ?? '';
+
     setCurrentClicked((prev) => {
-      if (prev === data.value) {
+      if (prev === clickedValue) {
         return '';
       }
 
-      return data.value;
+      return clickedValue;
     });
   };
 
@@ -114,8 +116,8 @@ export const Graph: FC<{ result: ResultType }> = ({ result }) => {
       </Button>
       <ResponsiveContainer>
         <LineChart
-          onMouseDown={(e) => setGraphState((prev) => ({ ...prev, refAreaLeft: e?.activeLabel ?? '' }))}
-          onMouseMove={(e) => refAreaLeft && setGraphState((prev) => ({ ...prev, refAreaRight: e?.activeLabel ?? '' }))}
+          onMouseDown={(e) => setGraphState((prev) => ({ ...prev, refAreaLeft: String(e?.activeLabel ?? '') }))}
+          onMouseMove={(e) => refAreaLeft && setGraphState((prev) => ({ ...prev, refAreaRight: String(e?.activeLabel ?? '') }))}
           onMouseUp={zoom}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -138,10 +140,10 @@ export const Graph: FC<{ result: ResultType }> = ({ result }) => {
             name="Damage"
             mirror
           />
-          <Tooltip content={<CustomTooltip clicked={currentClicked} />} />
+          <Tooltip content={(props) => <CustomTooltip {...props} clicked={currentClicked} />} />
           <Legend
             onClick={handleMouseClick}
-            onMouseEnter={(event) => setCurrentHover(event.value)}
+            onMouseEnter={(event) => setCurrentHover(event.value?.toString() ?? '')}
             onMouseLeave={() => setCurrentHover('')}
           />
           {result.team.map((agent: Agent, index: number) => {
