@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "baseUrl": ".",
     "outDir": "dist",
     "module": "esnext",
     "target": "es2017",
@@ -9,7 +8,7 @@
     "sourceMap": true,
     "allowJs": true,
     "jsx": "preserve",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "rootDir": "calculator",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
