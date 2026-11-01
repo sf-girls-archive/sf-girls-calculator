@@ -32,6 +32,9 @@
       "./packages/*"
     ]
   },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true
+  },
   "overrides": {
     "minimatch": "11.0.3"
   }
