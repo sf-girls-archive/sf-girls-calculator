@@ -98,7 +98,7 @@ export const Header: FC = () => {
           </button>
           <a
             className="header-text-link"
-            href="https://github.com/ox7f/sf-girls-calculator"
+            href="https://github.com/sf-girls-archive/sf-girls-calculator"
             target="_blank"
             rel="noopener noreferrer"
           >

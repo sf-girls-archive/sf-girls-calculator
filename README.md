@@ -16,7 +16,7 @@ The **SF-Girls Calculator** is a web-based tool designed to help players experim
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/ox7f/sf-girls-calculator
+   git clone https://github.com/sf-girls-archive/sf-girls-calculator
    ```
 2. Navigate to the project directory:
    ```bash
