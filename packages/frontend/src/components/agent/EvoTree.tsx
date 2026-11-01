@@ -51,8 +51,17 @@ export const EvoTree: FC = () => {
       </div>
 
       <div className="evo-tree-controls">
-        <Button text="Max" color="primary" disabled={disableMax} onClick={() => updateNodesLevel(5)} />
-        <Button text="Reset" color="primary" disabled={disableReset} onClick={() => updateNodesLevel(0)} />
+        <div className="evo-tree-instruction">
+          <span className="evo-tree-instruction__marker" aria-hidden="true">
+            +
+          </span>
+          <span>Click a node to upgrade it. The badge shows its level out of 5.</span>
+        </div>
+
+        <div className="evo-tree-actions">
+          <Button text="Max" color="primary" disabled={disableMax} onClick={() => updateNodesLevel(5)} />
+          <Button text="Reset" color="primary" disabled={disableReset} onClick={() => updateNodesLevel(0)} />
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,8 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { FC, MouseEvent, useCallback, useState } from 'react';
 import { Agents as AgentsRaw } from '@sf-girls-calculator/calculator';
 
-import { AgentGallery, AgentList } from './index';
+import { AgentGallery } from './AgentGallery';
+import { AgentList } from './AgentList';
 import { ContextMenu, Portal, Spinner } from '../common';
 import {
   AgentDB,

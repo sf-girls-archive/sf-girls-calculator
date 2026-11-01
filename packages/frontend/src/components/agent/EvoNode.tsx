@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { EvoNode as EvoNodeModel } from '@sf-girls-calculator/calculator';
+import { FaBrain } from 'react-icons/fa';
 import { getEvoNodeTooltip, getTreeNumber } from '../utils';
 
 type EvoNodeProps = {
@@ -8,22 +9,15 @@ type EvoNodeProps = {
 };
 
 export const EvoNode: FC<EvoNodeProps> = ({ node, update }) => {
+  const [imageFailed, setImageFailed] = useState(false);
   const treeNumber = getTreeNumber(node);
-  const imageUrl = `evoNodes/${node.name.replace(/\s/g, '')}.webp`;
-  const tooltipText = `${node.name} (Level: ${node.level})`;
-
-  const avatarStyle = {
-    borderRadius: '10%',
-    cursor: 'pointer',
-    fontSize: '0.75rem',
-    fontWeight: '500',
-    height: '2.75rem',
-    width: '2.75rem',
-    textShadow: '1px 1px 5px rgba(0, 0, 0, 1)',
-    backgroundImage: `url(${imageUrl})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover'
-  };
+  const imageUrl = `${import.meta.env.BASE_URL}evoNodes/${node.name.replace(/\s/g, '')}.webp`;
+  const actionText = node.level === 5 ? 'Click to reset this branch' : 'Click to upgrade';
+  const tooltipText = `${node.name} · Level ${node.level}/5 · ${actionText}`;
+  const actionLabel =
+    node.level === 5
+      ? `Reset ${node.name} and its descendants`
+      : `Upgrade ${node.name} to level ${node.level + 1}`;
 
   const handleNodeClick = () => {
     node.levelUp();
@@ -32,13 +26,31 @@ export const EvoNode: FC<EvoNodeProps> = ({ node, update }) => {
 
   return (
     <div className={`u-flex-column-reverse u-center level-${treeNumber}-container`}>
-      <div
-        className={`avatar avatar--l text-white hover-grow tooltip tooltip--bottom level-${treeNumber}-item evo-node`}
+      <button
+        type="button"
+        className={`hover-grow tooltip tooltip--bottom level-${treeNumber}-item evo-node`}
         data-text={getEvoNodeTooltip(node)}
         data-tooltip={tooltipText}
-        style={avatarStyle}
+        title={tooltipText}
+        aria-label={`${actionLabel} (current level ${node.level} of 5)`}
         onClick={handleNodeClick}
-      />
+      >
+        {imageFailed ? (
+          <span className="evo-node__image-fallback" aria-hidden="true">
+            <FaBrain />
+          </span>
+        ) : (
+          <img className="evo-node__image" src={imageUrl} alt="" draggable={false} onError={() => setImageFailed(true)} />
+        )}
+        <span className="evo-node__level" aria-hidden="true">
+          <span>LV</span>
+          <strong>{node.level}</strong>
+          <span>/5</span>
+        </span>
+        <span className={`evo-node__upgrade${node.level === 5 ? ' evo-node__upgrade--reset' : ''}`} aria-hidden="true">
+          {node.level === 5 ? '↻' : '+'}
+        </span>
+      </button>
       <div className="u-flex u-flex-row">
         {node.children.map((child) => (
           <EvoNode key={child.name} node={child} update={update} />

@@ -2,7 +2,7 @@ import { useSetAtom } from 'jotai';
 import { FC, useEffect } from 'react';
 
 import { CurrentViewAtom } from '../atoms';
-import { Agents } from '../components/agent';
+import { Agents } from '../components/agent/Agents';
 
 const viewName = 'teamfinder';
 

@@ -20,10 +20,23 @@ export default defineConfig({
     cssCodeSplit: false,
     rollupOptions: {
       output: {
-        manualChunks: function(id) {
-          if (id.includes('node_modules')) {
-            return id.toString().split('node_modules/')[1].split('/')[0].toString();
+        manualChunks(id) {
+          const packagePath = id.split('node_modules/')[1];
+
+          if (!packagePath || packagePath.startsWith('@babel/')) {
+            return;
           }
+
+          const packageParts = packagePath.split('/');
+          const packageName = packageParts[0].startsWith('@')
+            ? `${packageParts[0]}/${packageParts[1]}`
+            : packageParts[0];
+
+          if (['cookie', 'set-cookie-parser', 'react-router-dom', 'dom-helpers'].includes(packageName)) {
+            return;
+          }
+
+          return packageName;
         }
       }
     }
