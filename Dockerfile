@@ -1,7 +1,10 @@
-FROM node:alpine AS builder
+FROM node:26-alpine AS builder
 WORKDIR /app
+COPY package.json package-lock.json ./
+COPY packages/calculator/package.json packages/calculator/package.json
+COPY packages/frontend/package.json packages/frontend/package.json
+RUN npm ci
 COPY . .
-RUN npm i
 RUN npm run build
 
 FROM nginx:alpine AS prod

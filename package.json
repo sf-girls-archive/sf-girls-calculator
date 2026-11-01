@@ -4,6 +4,9 @@
   "license": "MIT",
   "private": true,
   "version": "0.0.1",
+  "engines": {
+    "node": "^22.13.0 || ^24.0.0 || ^26.0.0"
+  },
   "scripts": {
     "build": "npm run build:calculator && npm run build:frontend",
     "build:calculator": "npm run build --workspace=@sf-girls-calculator/calculator",
