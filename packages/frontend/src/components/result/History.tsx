@@ -38,44 +38,32 @@ const HistoryItem: FC<HistoryItemProps> = ({ result, nextResult, difference }) =
         </div>
       ));
 
-  const renderEmptyPlaceholders = () => {
-    const placeholdersCount = 7 - result.team.length;
-    return Array.from(Array(placeholdersCount)).map((_, placeholderIndex) => (
-      <div key={`empty-${placeholderIndex}`} className="avatar avatar--xs">
-        <div style={{ height: '100%', backgroundColor: 'white', backgroundSize: '100%' }} />
-      </div>
-    ));
-  };
-
   const renderDifferenceIcon = () => {
     if (difference > 0) {
       return <FaLevelUpAlt color="green" style={{ transform: 'rotate(360deg) scaleX(-1)' }} />;
     } else if (difference < 0) {
       return <FaLevelDownAlt color="red" style={{ transform: 'rotate(360deg) scaleX(-1)' }} />;
     } else {
-      return <div className="w-5" />;
+      return null;
     }
   };
 
   const renderDifference = () =>
     nextResult && (
-      <>
+      <span className="accordion__difference">
         {renderDifferenceIcon()}
         <span>{difference} %</span>
-      </>
+      </span>
     );
 
   return (
     <li className="m-0 p-0">
-      <details className="accordion" open={open} onClick={toggleAccordion} style={{ padding: '0.75rem' }}>
+      <details className="accordion" open={open} onClick={toggleAccordion}>
         <summary className="accordion__summary">
           {renderDifference()}
-          {result.totalDamage}
+          <span className="accordion__damage">{result.totalDamage}</span>
         </summary>
-        <div className="result-team">
-          {renderAgents()}
-          {renderEmptyPlaceholders()}
-        </div>
+        <div className="result-team">{renderAgents()}</div>
       </details>
     </li>
   );
@@ -102,20 +90,13 @@ export const History: FC = () => {
   };
 
   return (
-    <nav className="toc__nav">
-      <div className="sidebar-container tree-nav p-0 mr-2" id="sidebar">
-        <div className="sidebar-wrapper">
-          <div className="sidebar px-3">
-            <ul className="menu mb-3">
-              <div className="sidebar__title font-bold uppercase text-gray-600">Results</div>
-              <li className="menu-item u-sticky u-top-1"></li>
-              <ul id="agent-list" className="menu mb-3 result-container">
-                {renderHistoryItems()}
-              </ul>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <aside className="toc__nav" aria-labelledby="result-history-title">
+      <h2 id="result-history-title" className="sidebar__title">
+        Results
+      </h2>
+      <ul id="result-history" className="menu result-container">
+        {renderHistoryItems()}
+      </ul>
+    </aside>
   );
 };

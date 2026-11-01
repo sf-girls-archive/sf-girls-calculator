@@ -25,7 +25,7 @@ export const CustomTooltip: FC<CustomTooltipProps> = ({ active, payload, clicked
   };
 
   return (
-    <div className="agent-graph-tooltip" style={{ backgroundColor: 'white', opacity: 0.8 }}>
+    <div className="agent-graph-tooltip">
       <p className="u-center mb-0">{payload[0].payload.time}s</p>
       <div className="divider" />
       {renderTooltipContent()}

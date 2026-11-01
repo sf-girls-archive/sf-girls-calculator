@@ -40,7 +40,7 @@ export const TargetSelect: FC = () => {
   const selectOptions = getSelectOptions();
 
   return (
-    <div className="u-center m-o" style={{ display: 'block', paddingTop: '2.25rem' }}>
+    <div className="target-select-wrap">
       <Select value={targetValue} options={selectOptions} onChange={handleChange} />
     </div>
   );

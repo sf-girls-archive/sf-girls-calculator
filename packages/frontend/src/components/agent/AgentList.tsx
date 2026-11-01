@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { FC, MouseEvent, useEffect, useRef, useState } from 'react';
-import { FaAngleRight, FaStar } from 'react-icons/fa';
+import { FaAngleRight, FaRegStar, FaStar } from 'react-icons/fa';
 
 import { Search } from '../common';
 import { History, Results } from '../result';
@@ -75,9 +75,19 @@ export const AgentList: FC<AgentListProps> = ({ agents, loading, calculate, favo
               </div>
               {agent.name}
             </a>
-            <span className="u-absolute favorite" onClick={() => favorite(agent)}>
-              <FaStar className={`favorite-star hover-grow-extreme ${isFavorite ? 'active' : ''}`} />
-            </span>
+            <button
+              className="favorite"
+              type="button"
+              aria-label={`${isFavorite ? 'Remove' : 'Add'} ${agent.name} ${isFavorite ? 'from' : 'to'} favorites`}
+              aria-pressed={isFavorite}
+              onClick={() => favorite(agent)}
+            >
+              {isFavorite ? (
+                <FaStar className="favorite-star active" aria-hidden="true" />
+              ) : (
+                <FaRegStar className="favorite-star" aria-hidden="true" />
+              )}
+            </button>
           </li>
         );
       })
@@ -90,30 +100,43 @@ export const AgentList: FC<AgentListProps> = ({ agents, loading, calculate, favo
   return (
     <>
       <div className="tree-nav-header u-items-center">
-        <a href="#sidebar" className="u-shadow-none">
-          <FaAngleRight color="darkgrey" />
+        <a href="#sidebar" className="u-shadow-none" aria-label="Open agent selection">
+          <FaAngleRight aria-hidden="true" />
         </a>
       </div>
 
       <div className="sidebar-container tree-nav p-0 mr-2" id="sidebar">
         <div className="sidebar-wrapper">
           <div className="sidebar px-3">
-            <ul className="menu m-0">
-              <div className="sidebar__title font-bold uppercase text-gray-600">Agents</div>
-              <li>
-                <Search />
-              </li>
-              <ul ref={containerRef} id="agent-list" className="menu mb-3">
-                {renderAgentList()}
-              </ul>
+            <div className="sidebar__heading">
+              <div>
+                <span className="eyebrow sidebar__eyebrow">
+                  <span className="eyebrow-mark" />
+                  SELECT / 01
+                </span>
+                <h2 className="sidebar__title">Agent roster</h2>
+              </div>
+              <span className="sidebar__count">{String(agents.length).padStart(2, '0')}</span>
+            </div>
+            <div className="sidebar__search">
+              <Search />
+            </div>
+            <ul ref={containerRef} id="agent-list" className="menu mb-3">
+              {renderAgentList()}
             </ul>
           </div>
         </div>
       </div>
-      <a href="#" id="sidebar-close" className="tree-nav-close p-0 u-shadow-none" style={{ boxShadow: 'none' }}></a>
+      <a
+        href="#"
+        id="sidebar-close"
+        className="tree-nav-close p-0 u-shadow-none"
+        aria-label="Close agent selection"
+        style={{ boxShadow: 'none' }}
+      />
 
       <div className="tree-nav-container h-auto" style={{ flexGrow: 1 }}>
-        <main className="page-layout u-center">
+        <main className="page-layout">
           <section>
             <TargetSelect />
             <Results calculate={calculate} loading={loading} contextMenuHandler={contextMenuHandler} />

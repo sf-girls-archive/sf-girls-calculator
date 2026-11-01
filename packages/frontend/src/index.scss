@@ -1,12 +1,5 @@
 :root {
   --sash-size: 4px;
-  --cirrus-fg: #010101;
-  --cirrus-bg: #fff;
-  --cirrus-select-bg: rgba(0, 161, 255, 0.2);
-  --cirrus-code-bg: #ffdadd;
-  --cirrus-code-fg: #dc4753;
-  --cirrus-form-group-bg: #f8f9fa;
-  --cirrus-form-group-fg: #909090;
   --toast-primary-bg: rgba(49, 59, 80, 0.9);
   --animation-duration: 0.2s;
   --focus-opacity: 0.55;
@@ -15,8 +8,6 @@
   --font-size-m: 1rem;
   --font-size-l: 1.25rem;
   --font-size-xl: 1.5rem;
-  --cirrus-focus-size: 0 0 0.1rem 0.15rem;
-  --cirrus-focus-color: rgba(240, 61, 77, 0.13);
   --bg-opacity: 1;
   --color-opacity: 1;
   --border-opacity: 1;
@@ -73,7 +64,7 @@ body {
   --scrollbar-color: #c5c1b9;
   --scrollbar-corner-bg: #b7b7b7;
   --scrollbar-thumb-bg: #ddd;
-  color: var(--cirrus-fg);
+  color: var(--paper);
   display: block;
   padding: 8px;
   padding-top: 0;
@@ -199,10 +190,6 @@ a {
 
   .avatar {
     background-color: white;
-
-    div {
-      border-radius: 50%;
-    }
   }
 
   .result-team {
@@ -240,26 +227,6 @@ a {
 
 .card__image {
   background-color: #f2f2f2;
-}
-
-.card--slide-up {
-  &:hover {
-    .card-image,
-    .card__image {
-      transform: translateY(0px) !important;
-    }
-
-    .mobile-title,
-    .card__mobile-title {
-      bottom: 38% !important;
-      transition: all 0.3s ease-in-out;
-      z-index: 1;
-
-      .content {
-        margin: 0 !important;
-      }
-    }
-  }
 }
 
 .close {
@@ -338,10 +305,6 @@ a {
   background-color: hsla(0, 0%, 100%, 0.8);
   position: absolute;
   z-index: 100;
-}
-
-.hero {
-  animation: animate-slide 15s linear infinite;
 }
 
 .tree-nav-body {
@@ -646,15 +609,6 @@ a {
   }
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes animate-slide {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: -150px 0;
   }
 }
 

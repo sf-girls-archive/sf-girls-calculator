@@ -14,11 +14,22 @@ export const CalculatorPage: FC = () => {
   }, []);
 
   return (
-    <div className="mx-1">
+    <section className="workspace-page workspace-page--calculator">
+      <div className="workspace-heading">
+        <div>
+          <p className="eyebrow">
+            <span className="eyebrow-mark" />
+            SIMULATION / 01
+          </p>
+          <h1>Damage Calculator</h1>
+          <p>Assemble a squad, choose a target and compare projected damage over time.</p>
+        </div>
+        <span className="workspace-heading__meta">UP TO 7 AGENTS</span>
+      </div>
       <div className="default-layout tree-nav-body mx-auto">
         <Agents />
       </div>
-    </div>
+    </section>
   );
 };
 

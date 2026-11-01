@@ -28,7 +28,7 @@ export const ErrorBoundary: FC = () => {
                 <Button text="Refresh" color="primary" />
               </div>
               <div className="m-1" onClick={() => navigate('/')}>
-                <Button text="Home" />
+                <Button text="Calculator" />
               </div>
             </div>
           </div>

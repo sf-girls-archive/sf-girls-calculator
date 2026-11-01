@@ -1,4 +1,4 @@
-import { FC, MouseEvent as ReactMouseEvent, useEffect, useRef } from 'react';
+import { FC, MouseEvent as ReactMouseEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AgentItem } from '../../atoms';
 
 type ContextMenuProps = {
@@ -15,6 +15,20 @@ type ContextMenuProps = {
 
 export const ContextMenu: FC<ContextMenuProps> = ({ agent, position, onClose, favorite, toggleModal, select }) => {
   const menuRef = useRef<HTMLDivElement>(null);
+  const [menuPosition, setMenuPosition] = useState(position);
+
+  useLayoutEffect(() => {
+    const menu = menuRef.current;
+    if (!menu) {
+      return;
+    }
+
+    const { width, height } = menu.getBoundingClientRect();
+    setMenuPosition({
+      left: Math.max(8, Math.min(position.left, window.innerWidth - width - 8)),
+      top: Math.max(8, Math.min(position.top, window.innerHeight - height - 8))
+    });
+  }, [position]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,8 +47,8 @@ export const ContextMenu: FC<ContextMenuProps> = ({ agent, position, onClose, fa
   return (
     <div
       ref={menuRef}
-      className="u-absolute u-shadow-md bg-white"
-      style={{ left: position.left, top: position.top, zIndex: 401 }}
+      className="context-menu"
+      style={{ left: menuPosition.left, top: menuPosition.top }}
       onContextMenu={(event: ReactMouseEvent) => event.preventDefault()}
     >
       <ul className="menu">

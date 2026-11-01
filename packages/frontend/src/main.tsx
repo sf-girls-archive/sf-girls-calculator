@@ -1,13 +1,13 @@
-import 'cirrus-ui';
 import './index.scss';
+import './viewer-theme.scss';
 
 import { Provider } from 'jotai';
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 
 import { App } from './App';
-import { Calculator, ErrorBoundary, Home, Teamfinder } from './pages';
+import { Calculator, ErrorBoundary, Teamfinder } from './pages';
 
 const router = createBrowserRouter([
   {
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorBoundary />,
     children: [
-      { path: '/', element: <Home /> },
-      { path: '/calculator', element: <Calculator /> },
+      { path: '/', element: <Calculator /> },
+      { path: '/calculator', element: <Navigate to="/" replace /> },
       { path: '/teamfinder', element: <Teamfinder /> }
     ]
   }

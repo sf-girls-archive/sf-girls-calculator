@@ -18,6 +18,7 @@ type ButtonProps = {
     | 'danger';
   disabled?: boolean;
   effect?: 'bounce' | 'bounceIn' | 'fadeIn' | 'pound' | 'pulse' | 'ping' | 'loading';
+  ariaLabel?: string;
   size?: 'xs' | 'sm' | 'lg' | 'xl';
   text?: string;
   tooltip?: string;
@@ -33,6 +34,7 @@ export const Button: FC<ButtonProps> = ({
   color,
   disabled,
   effect,
+  ariaLabel,
   size,
   text,
   tooltip,
@@ -85,7 +87,13 @@ export const Button: FC<ButtonProps> = ({
   const buttonClassNames = getButtonClassNames();
 
   return (
-    <button className={`${buttonClassNames} ${className}`} disabled={disabled} onClick={onClick} data-tooltip={tooltip}>
+    <button
+      className={`${buttonClassNames} ${className ?? ''}`}
+      disabled={disabled}
+      onClick={onClick}
+      data-tooltip={tooltip}
+      aria-label={ariaLabel}
+    >
       {text && text}
       {children && children}
     </button>

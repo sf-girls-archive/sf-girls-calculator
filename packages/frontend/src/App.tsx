@@ -3,19 +3,18 @@ import { Outlet } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 
 import { AgentModal } from './components/agent';
-import { Footer, Header } from './components/layout';
+import { Header } from './components/layout';
 
 export const App: FC = () => {
   return (
-    <div className="container">
+    <>
       <AgentModal />
       <Header />
-      <div className="content">
+      <main className="app-shell">
         <Outlet />
-      </div>
-      <Footer />
+      </main>
 
       <Analytics />
-    </div>
+    </>
   );
 };

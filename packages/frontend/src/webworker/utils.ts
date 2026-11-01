@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { Agents, bruteforceTeam, calculateTeam, NewAgent, NewTarget, Targets } from '@sf-girls-calculator/calculator';
 import { openDB } from 'idb';
 

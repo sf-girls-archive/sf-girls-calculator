@@ -4,7 +4,7 @@ import { FaChartArea, FaTable } from 'react-icons/fa';
 
 import { Graph, Table } from './index';
 import { Button } from '../common';
-import { AgentItem, CurrentViewAtom, ResultListAtom } from '../../atoms';
+import { AgentItem, CurrentViewAtom, ResultListAtom, ResultListHistoryAtom } from '../../atoms';
 
 type ResultsProps = {
   loading: boolean;
@@ -18,6 +18,7 @@ export const Results: FC<ResultsProps> = ({ loading, calculate, contextMenuHandl
 
   const viewName = useAtomValue(CurrentViewAtom);
   const results = useAtomValue(ResultListAtom);
+  const history = useAtomValue(ResultListHistoryAtom);
 
   const renderResults = () => {
     return results[viewName].map((result) => {
@@ -47,29 +48,42 @@ export const Results: FC<ResultsProps> = ({ loading, calculate, contextMenuHandl
 
   return (
     <div className="results-container">
-      <div className="btn-group pt-1 u-flex-row">
-        <Button
-          tooltip="Show Graph"
-          tooltipPosition="bottom"
-          variant={showGraph ? 'outline' : undefined}
-          onClick={() => {
-            setShowGraph(true);
-            setShowTable(false);
-          }}
-        >
-          <FaChartArea size={20} />
-        </Button>
-        <Button
-          tooltip="Show Table"
-          tooltipPosition="bottom"
-          variant={showTable ? 'outline' : undefined}
-          onClick={() => {
-            setShowGraph(false);
-            setShowTable(true);
-          }}
-        >
-          <FaTable size={20} />
-        </Button>
+      <div className="results-container__header">
+        <div>
+          <span className="results-container__eyebrow">SIMULATION / OUTPUT</span>
+          <h2 className="results-container__title">Damage results</h2>
+        </div>
+        <span className="results-container__count">{String(history.length).padStart(2, '0')} RUNS</span>
+      </div>
+
+      <div className="results-toolbar">
+        <span className="results-toolbar__label">VIEW</span>
+        <div className="btn-group">
+          <Button
+            ariaLabel="Show graph"
+            tooltip="Show Graph"
+            tooltipPosition="bottom"
+            variant={showGraph ? 'outline' : undefined}
+            onClick={() => {
+              setShowGraph(true);
+              setShowTable(false);
+            }}
+          >
+            <FaChartArea size={20} />
+          </Button>
+          <Button
+            ariaLabel="Show table"
+            tooltip="Show Table"
+            tooltipPosition="bottom"
+            variant={showTable ? 'outline' : undefined}
+            onClick={() => {
+              setShowGraph(false);
+              setShowTable(true);
+            }}
+          >
+            <FaTable size={20} />
+          </Button>
+        </div>
         <Button disabled={loading} text="Calculate" onClick={() => calculate()} />
       </div>
 

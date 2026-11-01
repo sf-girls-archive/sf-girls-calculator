@@ -43,22 +43,17 @@ export const EvoTree: FC = () => {
   };
 
   return (
-    <>
-      <div className="content u-text-center">
-        <div
-          className="u-flex u-center u-overflow-auto"
-          style={{ flexWrap: 'nowrap', justifyContent: 'normal', height: '26rem' }}
-        >
-          {nodes.map((node) => (
-            <EvoNode key={node.name} node={node} update={onUpdateNode} />
-          ))}
-        </div>
+    <div className="evo-tree-editor">
+      <div className="evo-tree-viewport">
+        {nodes.map((node) => (
+          <EvoNode key={node.name} node={node} update={onUpdateNode} />
+        ))}
       </div>
 
-      <div className="btn-group btn-group-fill">
+      <div className="evo-tree-controls">
         <Button text="Max" color="primary" disabled={disableMax} onClick={() => updateNodesLevel(5)} />
         <Button text="Reset" color="primary" disabled={disableReset} onClick={() => updateNodesLevel(0)} />
       </div>
-    </>
+    </div>
   );
 };

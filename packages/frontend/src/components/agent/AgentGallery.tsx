@@ -1,6 +1,6 @@
 import { useAtomValue } from 'jotai';
 import { FC, MouseEvent, useEffect, useRef, useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import { FaRegStar, FaStar } from 'react-icons/fa';
 
 import { Button, Search } from '../common';
 import { Results } from '../result';
@@ -72,33 +72,34 @@ export const AgentGallery: FC<AgentGalleryProps> = ({
     };
 
     return (
-      <div key={name} className="col" style={{ minWidth: '350px', maxWidth: '350px' }}>
-        <div className="card card--slide-up" onContextMenu={(event: MouseEvent) => contextMenuHandler(event, agent)}>
-          <div className="u-absolute w-5 h-5 u-z-1">
-            <span
-              className="u-absolute favorite"
-              style={{ top: '0.75rem', right: '1rem' }}
-              onClick={() => favorite(agent)}
-            >
-              <FaStar size={20} className={`favorite-star hover-grow-extreme ${isFavorite ? 'active' : ''}`} />
-            </span>
-          </div>
+      <div key={name} className="col">
+        <div
+          className={`card${isSelected ? ' is-selected' : ''}`}
+          onContextMenu={(event: MouseEvent) => contextMenuHandler(event, agent)}
+        >
+          <button
+            className="favorite"
+            type="button"
+            aria-label={`${isFavorite ? 'Remove' : 'Add'} ${name} ${isFavorite ? 'from' : 'to'} favorites`}
+            aria-pressed={isFavorite}
+            onClick={() => favorite(agent)}
+          >
+            {isFavorite ? (
+              <FaStar className="favorite-star active" aria-hidden="true" />
+            ) : (
+              <FaRegStar className="favorite-star" aria-hidden="true" />
+            )}
+          </button>
           <div className="card__container">
             {loadedIndexes.includes(index) && <div className="card__image" style={cardImageStyle} />}
           </div>
           <div className="card__mobile-title">
-            <div className="content pl-2 pr-2">
-              <div className="tile">
-                <div className="tile__container row">
-                  <div className="col">
-                    <p className="tile__title">{name}</p>
-                    <p className="tile__subtitle">{title}</p>
-                  </div>
-                </div>
-                <div className="col pt-1">
-                  <div className={`tag tag--sm ${ClassTag[className]}`}>{className}</div>
-                </div>
+            <div className="agent-card-heading">
+              <div className="agent-card-heading__copy">
+                <p className="tile__title">{name}</p>
+                <p className="tile__subtitle">{title}</p>
               </div>
+              <div className={`tag tag--sm ${ClassTag[className]}`}>{className}</div>
             </div>
           </div>
           <div className="card__body content" style={{ width: '90%' }}>
@@ -143,7 +144,7 @@ export const AgentGallery: FC<AgentGalleryProps> = ({
         {showResults ? (
           <Results calculate={calculate} loading={loading} contextMenuHandler={contextMenuHandler} />
         ) : (
-          <div className="row u-center" ref={containerRef}>
+          <div className="row" ref={containerRef}>
             {agents.length ? agents.map(renderAgentCard) : <p>No results found...</p>}
           </div>
         )}

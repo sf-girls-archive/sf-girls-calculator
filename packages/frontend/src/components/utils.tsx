@@ -48,9 +48,21 @@ export function getAgentInfo(name: string) {
   const agent = Agents.Agents.find((agent) => agent.name === name);
   return {
     title: agent?.title ?? 'No title',
+    recordNumber: agent?.index ?? 0,
     bio: agent?.bio ?? 'No bio',
     skillDescription: agent?.skill.description ?? 'No skill description',
-    className: agent?.class ?? ClassEnum.ARTILLERY
+    skillName: agent?.skill.name ?? 'No skill',
+    skillCooldown: agent?.skill.cooldown ?? 0,
+    skillEffects:
+      agent?.skill.effects.map((effect) => ({
+        type: effect.type,
+        duration: 'duration' in effect ? effect.duration : undefined,
+        interval: 'interval' in effect ? effect.interval : undefined,
+        numberOfHits: 'numberOfHits' in effect ? effect.numberOfHits : undefined
+      })) ?? [],
+    className: agent?.class ?? ClassEnum.ARTILLERY,
+    organization: agent?.organization ?? 'Unknown organization',
+    rarity: agent?.rarity ?? 'Unknown rarity'
   };
 }
 

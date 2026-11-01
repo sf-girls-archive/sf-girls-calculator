@@ -3729,7 +3729,7 @@ export const YukakoX = {
           team
             .filter((agent) => agent.class === ClassEnum.GUNNER)
             .forEach((agent) => {
-              agent.stats.criticalDamage + -1.9;
+              agent.stats.criticalDamage -= 1.9;
               agent.stats.criticalRate -= 0.3;
             });
         },
