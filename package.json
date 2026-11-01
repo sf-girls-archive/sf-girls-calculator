@@ -23,7 +23,7 @@
     "start": "npm run dev --workspace=@sf-girls-calculator/frontend"
   },
   "devDependencies": {
-    "prettier": "^2.8.7"
+    "prettier": "^3.9.10"
   },
   "workspaces": {
     "packages": [
