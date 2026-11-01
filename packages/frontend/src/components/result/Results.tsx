@@ -21,9 +21,64 @@ export const Results: FC<ResultsProps> = ({ loading, calculate, contextMenuHandl
   const history = useAtomValue(ResultListHistoryAtom);
 
   const renderResults = () => {
-    return results[viewName].map((result) => {
+    return results[viewName].map((result, index) => {
       const remainingTime = result.time / 1000;
       const remainingHealth = result.target.currentHealth;
+
+      if (viewName === 'teamfinder') {
+        return (
+          <article className="teamfinder-result-card" key={result.id}>
+            <header className="teamfinder-result-card__header">
+              <div className="teamfinder-result-card__damage">
+                <span>TEAM / {String(index + 1).padStart(2, '0')}</span>
+                <div>
+                  <small>PROJECTED DAMAGE</small>
+                  <strong>{result.totalDamage.toLocaleString('en-US')}</strong>
+                </div>
+              </div>
+              <div className="teamfinder-result-card__team" aria-label="Team members">
+                {result.team.map((agent) => (
+                  <div className="teamfinder-result-card__agent" key={agent.name}>
+                    <img src={`/agents/${agent.name.replace(/\s/g, '')}Mini.webp`} alt="" />
+                    <span>{agent.name}</span>
+                  </div>
+                ))}
+              </div>
+            </header>
+
+            <div className="teamfinder-result-card__metrics">
+              <div>
+                <span>TIME LEFT</span>
+                <strong>{remainingTime} sec</strong>
+              </div>
+              <div>
+                <span>TARGET HEALTH</span>
+                <strong>{remainingHealth.toLocaleString('en-US')}</strong>
+              </div>
+              <div>
+                <span>TEAM SIZE</span>
+                <strong>{result.team.length} AGENTS</strong>
+              </div>
+            </div>
+
+            {showTable ? (
+              <div className="teamfinder-result-card__table">
+                <Table result={result} contextMenuHandler={contextMenuHandler} />
+              </div>
+            ) : (
+              <div className="teamfinder-result-card__chart">
+                <div className="teamfinder-result-card__chart-heading">
+                  <span>DAMAGE TIMELINE</span>
+                  <span>DRAG TO ZOOM / CLICK LEGEND TO FILTER</span>
+                </div>
+                <div className="teamfinder-result-card__plot">
+                  <Graph result={result} />
+                </div>
+              </div>
+            )}
+          </article>
+        );
+      }
 
       return (
         <div className="content" key={result.id}>
@@ -47,13 +102,20 @@ export const Results: FC<ResultsProps> = ({ loading, calculate, contextMenuHandl
   };
 
   return (
-    <div className="results-container">
+    <div className={`results-container${viewName === 'teamfinder' ? ' results-container--teamfinder' : ''}`}>
       <div className="results-container__header">
         <div>
-          <span className="results-container__eyebrow">SIMULATION / OUTPUT</span>
-          <h2 className="results-container__title">Damage results</h2>
+          <span className="results-container__eyebrow">
+            {viewName === 'teamfinder' ? 'TEAMFINDER / CANDIDATES' : 'SIMULATION / OUTPUT'}
+          </span>
+          <h2 className="results-container__title">
+            {viewName === 'teamfinder' ? 'Team comparison' : 'Damage results'}
+          </h2>
         </div>
-        <span className="results-container__count">{String(history.length).padStart(2, '0')} RUNS</span>
+        <span className="results-container__count">
+          {String(viewName === 'teamfinder' ? results[viewName].length : history.length).padStart(2, '0')}{' '}
+          {viewName === 'teamfinder' ? 'TEAMS' : 'RUNS'}
+        </span>
       </div>
 
       <div className="results-toolbar">
