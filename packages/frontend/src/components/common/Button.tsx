@@ -1,8 +1,8 @@
-import { FC, MouseEvent } from 'react';
+import { FC, MouseEvent, ReactNode } from 'react';
 
 type ButtonProps = {
   animate?: boolean;
-  children?: JSX.Element;
+  children?: ReactNode;
   className?: string;
   color?:
     | 'plain'

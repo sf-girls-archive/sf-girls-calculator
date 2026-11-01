@@ -23,6 +23,8 @@
     "start": "npm run dev --workspace=@sf-girls-calculator/frontend"
   },
   "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "prettier": "^3.9.10"
   },
   "workspaces": {
